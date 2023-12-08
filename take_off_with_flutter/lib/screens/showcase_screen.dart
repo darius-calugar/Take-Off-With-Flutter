@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:take_off_with_flutter/flutter_examples/example_5/widgets/navigation_drawer.dart';
-import 'package:take_off_with_flutter/flutter_examples/example_5/widgets/showcase_flex.dart';
+import 'package:take_off_with_flutter/widgets/navigation_drawer.dart';
+import 'package:take_off_with_flutter/widgets/showcase_flex.dart';
 
 class ShowcaseScreen extends StatelessWidget {
   const ShowcaseScreen({super.key});

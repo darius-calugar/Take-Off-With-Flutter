@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:take_off_with_flutter/flutter_examples/example_4/widgets/navigation_drawer.dart';
+import 'package:take_off_with_flutter/widgets/navigation_drawer.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({
@@ -42,10 +42,5 @@ class _CounterScreenState extends State<CounterScreen> {
     setState(() {
       counter++;
     });
-  }
-
-  void _onToShowcasePressed() {
-    final navigator = Navigator.of(context);
-    navigator.pushNamed('/showcase');
   }
 }
