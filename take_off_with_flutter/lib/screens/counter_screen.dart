@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:take_off_with_flutter/blocs/counter/counter_bloc.dart';
 import 'package:take_off_with_flutter/widgets/navigation_drawer.dart';
 
-class CounterScreen extends StatefulWidget {
+class CounterScreen extends StatelessWidget {
   const CounterScreen({
     super.key,
   });
 
   @override
-  State<CounterScreen> createState() => _CounterScreenState();
-}
-
-class _CounterScreenState extends State<CounterScreen> {
-  int counter = 0;
-
-  @override
   Widget build(BuildContext context) {
+    final counterBloc = context.watch<CounterBloc>();
+
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
@@ -22,13 +19,39 @@ class _CounterScreenState extends State<CounterScreen> {
           'Counter',
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onAddPressed,
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            heroTag: 'minus_button',
+            onPressed: () => _onDecrementPressed(context),
+            child: const Text(
+              '-1',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          FloatingActionButton(
+            heroTag: 'add_button',
+            onPressed: () => _onIncrementPressed(context),
+            child: const Text(
+              '+2',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Text(
-          '$counter',
+          '${counterBloc.state.counter}',
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -38,9 +61,13 @@ class _CounterScreenState extends State<CounterScreen> {
     );
   }
 
-  void _onAddPressed() {
-    setState(() {
-      counter++;
-    });
+  void _onDecrementPressed(BuildContext context) {
+    final counterBloc = context.read<CounterBloc>();
+    counterBloc.add(CounterDecrementedEvent(value: 1));
+  }
+
+  void _onIncrementPressed(BuildContext context) {
+    final counterBloc = context.read<CounterBloc>();
+    counterBloc.add(CounterIncrementedEvent(value: 2));
   }
 }

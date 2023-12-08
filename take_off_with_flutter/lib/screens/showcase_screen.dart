@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:take_off_with_flutter/repositories/theme_repository.dart';
+import 'package:take_off_with_flutter/blocs/theme/theme_cubit.dart';
 import 'package:take_off_with_flutter/widgets/navigation_drawer.dart';
 
 class ShowcaseScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class ShowcaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeRepository = context.watch<ThemeRepository>();
+    final themeRepository = context.watch<ThemeCubit>();
 
     return Scaffold(
       drawer: const AppDrawer(),
@@ -27,7 +27,7 @@ class ShowcaseScreen extends StatelessWidget {
               width: 8,
             ),
             Switch(
-              value: themeRepository.isDarkTheme,
+              value: themeRepository.state.isDark,
               onChanged: (_) => _onThemeSwitchChanged(context),
             ),
             const SizedBox(
@@ -44,7 +44,7 @@ class ShowcaseScreen extends StatelessWidget {
   }
 
   void _onThemeSwitchChanged(BuildContext context) {
-    final themeRepository = context.read<ThemeRepository>();
+    final themeRepository = context.read<ThemeCubit>();
     themeRepository.toggle();
   }
 }
