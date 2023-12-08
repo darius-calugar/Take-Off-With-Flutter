@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:take_off_with_flutter/screens/counter_screen.dart';
-import 'package:take_off_with_flutter/screens/showcase_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:take_off_with_flutter/app.dart';
+import 'package:take_off_with_flutter/repositories/theme_repository.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      initialRoute: '/counter',
-      routes: {
-        '/counter': (context) => const CounterScreen(),
-        '/showcase': (context) => const ShowcaseScreen(),
-      },
+    ChangeNotifierProvider(
+      create: (context) => ThemeRepository(),
+      child: const App(),
     ),
   );
 }
