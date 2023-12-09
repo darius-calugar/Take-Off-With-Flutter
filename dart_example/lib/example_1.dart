@@ -1,31 +1,39 @@
-/// Example 1
-///
-/// Simple OOP
-
 abstract class Animal {
   final String name;
 
   Animal(this.name);
+
+  String get phrase;
+
+  void talk() {
+    print('$name: "$phrase"');
+  }
 }
 
 class Dog extends Animal {
   Dog(super.name);
+
+  @override
+  String get phrase => 'Woof';
 }
 
 class Cat extends Animal {
   final bool isAsleep;
 
   Cat(super.name, {this.isAsleep = false});
+
+  @override
+  String get phrase => isAsleep ? 'Purr' : 'Meow';
 }
 
 void main() {
-  final Animal simon = Dog('Simon');
-  final Animal manny = Cat('Manny');
-  final Animal bingo = Cat('Bingo', isAsleep: false);
-  final Animal geoff = Cat('Geoff', isAsleep: true);
+  final simon = Dog('Simon');
+  final manny = Cat('Manny');
+  final bingo = Cat('Bingo', isAsleep: false);
+  final geoff = Cat('Geoff', isAsleep: true);
 
-  print(simon.runtimeType);
-  print(manny.runtimeType);
-  print(bingo.runtimeType);
-  print(geoff.runtimeType);
+  simon.talk();
+  manny.talk();
+  bingo.talk();
+  geoff.talk();
 }
