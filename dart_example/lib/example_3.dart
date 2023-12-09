@@ -1,45 +1,57 @@
-/// Example 3
-///
-/// Compile-time evaluation
-
 abstract class Animal {
   final String name;
 
   const Animal(this.name);
-}
 
-abstract class CanTalk {
   String get phrase;
+
+  void talk() {
+    print('$name: "$phrase"');
+  }
 }
 
-class Dog extends Animal implements CanTalk {
+class Dog extends Animal {
   const Dog(super.name);
 
   @override
   String get phrase => 'Woof';
 }
 
-class Cat extends Animal implements CanTalk {
+class Cat extends Animal {
   final bool isAsleep;
+  final Mood? mood;
 
-  const Cat(super.name, {this.isAsleep = false});
+  const Cat(super.name, {this.isAsleep = false, this.mood});
 
   @override
-  String get phrase => isAsleep ? 'Purr' : 'Meow';
+  String get phrase {
+    final sound = isAsleep ? 'Purr' : 'Meow';
+    final moodText = switch (mood) {
+      Mood.angry => '*angrily*',
+      Mood.sad => '*sadly*',
+      null => null,
+    };
+    if (moodText != null) {
+      return '$sound $moodText';
+    } else {
+      return sound;
+    }
+  }
 }
 
-void talk(CanTalk talking) {
-  print(talking.phrase);
+enum Mood {
+  angry,
+  sad,
 }
 
 void main() {
   const simon = Dog('Simon');
-  const manny = Cat('Manny');
-  const bingo = Cat('Bingo', isAsleep: false);
+  const manny = Cat('Manny', mood: Mood.angry);
+  const bingo = Cat('Bingo', isAsleep: false, mood: Mood.sad);
   const geoff = Cat('Geoff', isAsleep: true);
 
-  talk(simon);
-  talk(manny);
-  talk(bingo);
-  talk(geoff);
+  simon.talk();
+  manny.talk();
+  bingo.talk();
+  geoff.talk();
 }

@@ -1,45 +1,39 @@
-/// Example 2
-///
-/// Advanced OOP
-
 abstract class Animal {
   final String name;
 
-  Animal(this.name);
-}
+  const Animal(this.name);
 
-abstract class CanTalk {
   String get phrase;
+
+  void talk() {
+    print('$name: "$phrase"');
+  }
 }
 
-class Dog extends Animal implements CanTalk {
-  Dog(super.name);
+class Dog extends Animal {
+  const Dog(super.name);
 
   @override
   String get phrase => 'Woof';
 }
 
-class Cat extends Animal implements CanTalk {
+class Cat extends Animal {
   final bool isAsleep;
 
-  Cat(super.name, {this.isAsleep = false});
+  const Cat(super.name, {this.isAsleep = false});
 
   @override
   String get phrase => isAsleep ? 'Purr' : 'Meow';
 }
 
-void talk(CanTalk talking) {
-  print('"${talking.phrase}"');
-}
-
 void main() {
-  final simon = Dog('Simon');
-  final manny = Cat('Manny');
-  final bingo = Cat('Bingo', isAsleep: false);
-  final geoff = Cat('Geoff', isAsleep: true);
+  const simon = Dog('Simon');
+  const manny = Cat('Manny');
+  const bingo = Cat('Bingo', isAsleep: false);
+  const geoff = Cat('Geoff', isAsleep: true);
 
-  talk(simon);
-  talk(manny);
-  talk(bingo);
-  talk(geoff);
+  simon.talk();
+  manny.talk();
+  bingo.talk();
+  geoff.talk();
 }
