@@ -1,9 +1,9 @@
 part of 'theme_cubit.dart';
 
 class ThemeState {
-  bool isDark;
+  final bool isDark;
 
-  ThemeState({
+  const ThemeState({
     required this.isDark,
   });
 
